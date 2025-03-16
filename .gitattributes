@@ -1,8 +1,10 @@
+# تأكيد أن Dart هو اللغة الأساسية
 *.dart linguist-detectable=true
+
+# تعطيل اكتشاف C/C++ و CMake
+CMakeLists.txt linguist-detectable=false
+*.cmake linguist-detectable=false
 *.c linguist-detectable=false
 *.h linguist-detectable=false
 *.cpp linguist-detectable=false
 *.hpp linguist-detectable=false
-*.dart linguist-detectable=true
-
-
