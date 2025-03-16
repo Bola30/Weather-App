@@ -1,0 +1,2 @@
+C:/Users/bolan/AndroidStudioProjects/Weather_App/android/app/.cxx/Debug/191b2f5w/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Users/bolan/AndroidStudioProjects/Weather_App/android/app/.cxx/Debug/191b2f5w/arm64-v8a/CMakeFiles/rebuild_cache.dir

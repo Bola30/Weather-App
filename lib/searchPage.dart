@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_app/cubit/weather_cubit.dart';
+import 'package:weather_app/homePage.dart';
+import 'package:weather_app/models/weather-model.dart';
+import 'package:weather_app/service/Weather_service.dart';
 
 class Searchpage extends StatelessWidget {
   String? cityName;
@@ -6,59 +11,60 @@ class Searchpage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            "Search a City",
-            style: TextStyle(fontSize: 25),
+        body: Stack(
+      children: [
+        Positioned.fill(
+          child: Image.asset(
+            'assets/images/search.png',
+            fit: BoxFit.cover,
           ),
-          backgroundColor: Colors.brown[500],
-          foregroundColor: Colors.black,
-          centerTitle: true,
         ),
-        body: Stack(children: [
-          Positioned.fill(
-            child: Image.asset(
-              'assets/images/search.png',
-              fit: BoxFit.cover, // يجعل الصورة تغطي الخلفية
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: TextField(
+              onChanged: (data) {
+                cityName = data;
+              },
+              onSubmitted: (data) async {
+                cityName = data;
+                BlocProvider.of<WeatherCubit>(context)
+                    .getFromWeatherService(cityName: cityName!);
+                    Navigator.pop(context);
+              },
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.white.withOpacity(0.8),
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+                labelText: "Search",
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                suffixIcon: Icon(Icons.search),
+                hintText: "Enter a City",
+              ),
             ),
           ),
-          Center(
-             child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: TextField(
-                onSubmitted: (data) {
-                  cityName = data;
-                },
-                decoration: InputDecoration(
-                  filled: true, // يجعل الخلفية بيضاء حتى تكون واضحة
-                  fillColor: Colors.white.withOpacity(0.8),
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 20, horizontal: 28),
-                  labelText: "Search",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  suffixIcon: Icon(Icons.search),
-                  hintText: "Enter a City",
-                ),))
-          )
-        ]));
-    /*        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: TextField(
-            onSubmitted: (data){
-              cityName = data;
-            },
-            decoration: InputDecoration(
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 32, horizontal: 24),
-                label: Text("search"),
-                border: OutlineInputBorder(),
-                suffixIcon: Icon(Icons.search),
-                hintText: "Enter a City "),
+        ),
+        Positioned(
+          top: 20,
+          child: CircleAvatar(
+            backgroundColor: Colors.white.withOpacity(0.2),
+            radius: 30,
+            child: IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Homepage()),
+                );
+              },
+              icon: Icon(Icons.arrow_back, size: 30, color: Colors.white),
+            ),
           ),
         ),
-      ),
-    ); */
+      ],
+    ));
   }
 }
+
+WeatherModel? weatherData;
