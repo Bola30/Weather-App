@@ -1,9 +1,8 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_app/cubit/weather_cubit.dart';
 import 'package:weather_app/homePage.dart';
-import 'package:weather_app/models/weather-model.dart';
-import 'package:weather_app/service/Weather_service.dart';
 
 class Searchpage extends StatelessWidget {
   String? cityName;
@@ -19,7 +18,7 @@ class Searchpage extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        Center(
+         Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
             child: TextField(
@@ -30,6 +29,7 @@ class Searchpage extends StatelessWidget {
                 cityName = data;
                 BlocProvider.of<WeatherCubit>(context)
                     .getFromWeatherService(cityName: cityName!);
+                    BlocProvider.of<WeatherCubit>(context).cityName =cityName;
                     Navigator.pop(context);
               },
               decoration: InputDecoration(
@@ -46,6 +46,7 @@ class Searchpage extends StatelessWidget {
             ),
           ),
         ),
+
         Positioned(
           top: 20,
           child: CircleAvatar(
@@ -67,4 +68,3 @@ class Searchpage extends StatelessWidget {
   }
 }
 
-WeatherModel? weatherData;

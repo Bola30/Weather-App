@@ -8,8 +8,7 @@ part 'weather_state.dart';
 class WeatherCubit extends Cubit<WeatherState> {
   WeatherCubit(this.weatherService) : super(WeatherInitial());
   WeatherService weatherService;
-
-  
+  String? cityName;
   WeatherModel? weatherModel;
     getFromWeatherService({required String cityName}) async {
     emit(WeatherLoading());

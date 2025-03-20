@@ -89,9 +89,9 @@ class SuccessState extends StatelessWidget {
             children: [
               Spacer(flex: 4),
               Text(
-                "Cairo",
+                BlocProvider.of<WeatherCubit>(context).cityName!,
                 style: TextStyle(
-                    fontSize: 38,
+                    fontSize: 42,
                     fontWeight: FontWeight.bold,
                     backgroundColor: Colors.white.withOpacity(0.4),
                     shadows: [
@@ -102,7 +102,7 @@ class SuccessState extends StatelessWidget {
                     ]),
               ),
               Text(
-                "Update: 12:11 PM",
+                "Update: tdy at : ${BlocProvider.of<WeatherCubit>(context).weatherModel?.date ?? "Unknown Date"}",
                 style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
@@ -119,12 +119,17 @@ class SuccessState extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Image.asset(
-                    "assets/images/clear.png",
-                    height: 120,
-                    width: 100,
+                    BlocProvider.of<WeatherCubit>(context).weatherModel != null
+                        ? BlocProvider.of<WeatherCubit>(context)
+                            .weatherModel!
+                            .getImage()
+                        : "assets/images/clear.webp",
+                    width: 120, 
+                    height: 120, 
+                    fit: BoxFit.contain, 
                   ),
                   Text(
-                    "22",
+                    " ${BlocProvider.of<WeatherCubit>(context).weatherModel?.temp ?? "Unknown Date"}",
                     style: TextStyle(
                         fontSize: 45,
                         color: Colors.black,
@@ -138,23 +143,39 @@ class SuccessState extends StatelessWidget {
                   ),
                   Column(
                     children: [
-                      Text("maxTemp: 28" , style: TextStyle( fontSize: 18, backgroundColor: Colors.white.withOpacity(0.3),fontWeight: FontWeight.bold, 
-                  shadows: [Shadow(
-                    blurRadius: 4.0,
-                            offset: Offset(.05, 0),
-                  )]),),
-                      Text("minTemp: 16" , style: TextStyle( fontSize: 18, backgroundColor: Colors.white.withOpacity(0.3),fontWeight: FontWeight.bold, 
-                  shadows: [Shadow(
-                    blurRadius: 4.0,
-                            offset: Offset(.05, 0),
-                  )]),),
+                      Text(
+                        "maxTemp : ${BlocProvider.of<WeatherCubit>(context).weatherModel?.maxtemp ?? "Unknown Date"}",
+                        style: TextStyle(
+                            fontSize: 15,
+                            backgroundColor: Colors.white.withOpacity(0.3),
+                            fontWeight: FontWeight.bold,
+                            shadows: [
+                              Shadow(
+                                blurRadius: 4.0,
+                                offset: Offset(.05, 0),
+                              )
+                            ]),
+                      ),
+                      Text(
+                        "minTemp : ${BlocProvider.of<WeatherCubit>(context).weatherModel?.mintemp ?? "Unknown Date"}",
+                        style: TextStyle(
+                            fontSize: 15,
+                            backgroundColor: Colors.white.withOpacity(0.3),
+                            fontWeight: FontWeight.bold,
+                            shadows: [
+                              Shadow(
+                                blurRadius: 4.0,
+                                offset: Offset(.05, 0),
+                              )
+                            ]),
+                      ),
                     ],
                   ),
                 ],
               ),
               Spacer(),
-               Text(
-                "Clear",
+              Text(
+                "${BlocProvider.of<WeatherCubit>(context).weatherModel?.condition ?? "Unknown Date"}",
                 style: TextStyle(
                     fontSize: 38,
                     fontWeight: FontWeight.bold,
